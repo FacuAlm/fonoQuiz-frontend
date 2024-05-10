@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
 
       try {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/api/users/perfil`,
+          `${import.meta.env.VITE_BACKEND_URL}/users/perfil`,
           config
         );
 
