@@ -1,5 +1,5 @@
 import React from "react";
-import atras from "../../public/images/back.png";
+import atras from "/images/back.png";
 
 export const Card = ({ card, handleCardClick }) => {
   return (

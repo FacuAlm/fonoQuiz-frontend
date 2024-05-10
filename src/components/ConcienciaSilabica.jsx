@@ -171,7 +171,7 @@ const ConcienciaSilabica = () => {
       </div>
       <div className="flex flex-col justify-center items-center mb-4">
         <img
-          src={`../../public/images/${words[currentWordIndex].id}.png`}
+          src={`/images/${words[currentWordIndex].id}.png`}
           alt={words[currentWordIndex].word}
           className="w-40 h-auto mb-4"
         />
@@ -215,7 +215,7 @@ const ConcienciaSilabica = () => {
             >
               <div className="relative">
                 <img
-                  src={`../../public/images/redondo-${words[currentWordIndex].id}.png`}
+                  src={`/images/redondo-${words[currentWordIndex].id}.png`}
                   alt=""
                   className="w-20 h-auto visible"
                   onClick={handleCircleClick}

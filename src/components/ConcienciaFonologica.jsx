@@ -203,7 +203,7 @@ const ConcienciaFonologica = () => {
             }`}
           >
             <img
-              src={`../../public/images/${image.name}.png`}
+              src={`/images/${image.name}.png`}
               alt={image.name}
               className="w-24 h-24 mb-2"
             />
@@ -212,7 +212,9 @@ const ConcienciaFonologica = () => {
       </div>
       {selectedImage && (
         <div className="text-lg font-semibold">
-          {isCorrect ? `¡Muy bien! es ${selectedImage.name}` : "¡Inténtalo de nuevo!"}
+          {isCorrect
+            ? `¡Muy bien! es ${selectedImage.name}`
+            : "¡Inténtalo de nuevo!"}
         </div>
       )}
       {selectedConsonant && selectedVowel && selectedImage && (
