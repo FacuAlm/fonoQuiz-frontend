@@ -35,7 +35,7 @@ const PacientesProvider = ({ children }) => {
       };
 
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/patients`,
+        `${import.meta.env.VITE_BACKEND_URL}/patients`,
         config
       );
 
@@ -68,7 +68,7 @@ const PacientesProvider = ({ children }) => {
       //   };
 
       const { data } = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/patients/${paciente.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/patients/${paciente.id}`,
         paciente
       );
 
@@ -109,7 +109,7 @@ const PacientesProvider = ({ children }) => {
       };
 
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/patients`,
+        `${import.meta.env.VITE_BACKEND_URL}/patients`,
 
         paciente,
         config
@@ -150,7 +150,7 @@ const PacientesProvider = ({ children }) => {
       const { data } = await axios.post(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/patients/${pacienteId}/api/diagnosticos`,
+        }/patients/${pacienteId}/diagnosticos`,
 
         diagnostico,
         config
@@ -189,7 +189,7 @@ const PacientesProvider = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/patients/${id}/diagnosticos`,
+        `${import.meta.env.VITE_BACKEND_URL}/patients/${id}/diagnosticos`,
         config
       );
 
@@ -215,7 +215,7 @@ const PacientesProvider = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api/patients/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/patients/${id}`,
         config
       );
 
