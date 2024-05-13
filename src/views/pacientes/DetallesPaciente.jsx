@@ -12,8 +12,18 @@ const DetallesPaciente = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { paciente, obtenerPaciente, obtenerDiagnosticos, diagnósticos } =
-    usePacientes();
+  const {
+    paciente,
+    obtenerPaciente,
+    obtenerDiagnosticos,
+    diagnósticos,
+    eliminarPaciente,
+  } = usePacientes();
+
+  const handleDelete = () => {
+    eliminarPaciente(paciente._id);
+    navigate("/dashboard");
+  };
 
   useEffect(() => {
     obtenerPaciente(id);
@@ -39,18 +49,18 @@ const DetallesPaciente = () => {
 
         <div className="flex items-center gap-4">
           <Link
-            to="/pacientes/crear"
+            to={`/pacientes/${paciente._id}/editar`}
             className="bg-fuchsia-500 hover:bg-fuchsia-700 text-white font-bold py-2 px-4 rounded-md mt-4"
           >
             Editar paciente
           </Link>
 
-          <Link
-            to="/pacientes/crear"
+          <button
+            onClick={handleDelete}
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md mt-4"
           >
             Eliminar paciente
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -156,7 +166,7 @@ const DetallesPaciente = () => {
                         <button
                           type="button"
                           className="block px-3 py-1 text-sm leading-6 text-red-500"
-                          onClick={() => {}}
+                          onClick={handleDelete}
                         >
                           Eliminar Paciente
                         </button>

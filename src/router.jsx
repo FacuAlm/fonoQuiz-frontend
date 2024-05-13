@@ -19,6 +19,7 @@ export default function Router() {
 
           <Route path="/pacientes/crear" element={<CrearPaciente />} />
           <Route path="/pacientes/:id" element={<DetallesPaciente />} />
+          <Route path="/pacientes/:id/editar" element={<CrearPaciente />} />
           <Route path="/juegos" element={<Juegos />} />
           <Route
             path="/juegos/conciencia-silabica"

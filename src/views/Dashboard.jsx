@@ -6,7 +6,7 @@ import { Menu, Transition } from "@headlessui/react";
 import formatDate from "../helpers/formatDate";
 
 export default function Dashboard() {
-  const { pacientes, paciente } = usePacientes();
+  const { pacientes, paciente, eliminarPaciente } = usePacientes();
   console.log(paciente);
   return (
     <>
@@ -32,7 +32,7 @@ export default function Dashboard() {
           role="list"
           className="divide-y divide-gray-100 border border-gray-100 mt-10 bg-white shadow-lg "
         >
-          {pacientes.map((paciente) => (
+          {pacientes?.map((paciente) => (
             <li
               key={paciente._id}
               className="flex justify-between gap-x-6 px-5 py-10"
@@ -110,7 +110,10 @@ export default function Dashboard() {
                         <button
                           type="button"
                           className="block px-3 py-1 text-sm leading-6 text-red-500"
-                          onClick={() => {}}
+                          onClick={() => {
+                            eliminarPaciente(paciente._id);
+                          }
+                          }
                         >
                           Eliminar Paciente
                         </button>

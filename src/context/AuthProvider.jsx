@@ -31,8 +31,8 @@ const AuthProvider = ({ children }) => {
         );
 
         setAuth(data);
-        const navigate = useNavigate(); 
-        navigate("/dashboard"); // Use navigate here
+        // const navigate = useNavigate(); 
+        // navigate("/dashboard"); // Use navigate here
        
       } catch (error) {
         console.log(error);

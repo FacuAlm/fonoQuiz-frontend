@@ -7,14 +7,15 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 
 export default function CrearPaciente() {
-  const navigate = useNavigate();
   const { paciente, submitPaciente } = usePacientes();
 
   const params = useParams();
 
+  const navigate = useNavigate();
+ 
+ 
   const [id, setId] = useState(null);
-
-  const [fechaIngreso, setFechaIngreso] = useState("");
+   const [fechaIngreso, setFechaIngreso] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [edad, setEdad] = useState("");
@@ -33,6 +34,22 @@ export default function CrearPaciente() {
 
     return edad;
   };
+
+  useEffect(() => {
+    if (params.id) {
+      setId(paciente._id);
+      setFechaIngreso(paciente.fechaIngreso?.split("T")[0]);
+      setNombre(paciente.nombre);
+      setApellido(paciente.apellido);
+
+      setEdad(
+        paciente.edad || calcularEdad(paciente.fechaNacimiento?.split("T")[0])
+      );
+      setFechaNacimiento(paciente.fechaNacimiento?.split("T")[0]);
+      setPatologias(paciente.patologias);
+    } else {
+    }
+  }, [params]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +70,8 @@ export default function CrearPaciente() {
     }
     try {
       await submitPaciente({
+        id,
+        fechaIngreso,
         nombre,
         apellido,
         edad,
@@ -61,11 +80,14 @@ export default function CrearPaciente() {
       });
 
       // Restablece los valores del formulario
+      setId(null);
+      setFechaIngreso("");
       setNombre("");
       setApellido("");
       setEdad("");
       setFechaNacimiento("");
       setPatologias("");
+
 
       setTimeout(() => {
         navigate("/dashboard");

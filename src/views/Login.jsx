@@ -46,18 +46,18 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="bg-white w-[1100px]  h-[750px] rounded-3xl overflow-auto shadow-2xl flex">
-        <div className="w-1/2 flex md:flex-row flex-col justify-center  ">
+      <div className="bg-white w-[1100px]  md:h-[750px] rounded-3xl overflow-auto shadow-2xl flex mx-5">
+        <div className="md:w-1/2 flex md:flex-row flex-col justify-center  ">
           <div
             className="w-full bg-cover bg-center"
             style={{ backgroundImage: `url(${Logo})` }}
           ></div>
         </div>
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 w-full">
           <h1 className="text-center text-2xl font-bold mt-20 ">
             Iniciar Sesión
           </h1>
-          <div className=" md:w-3/4 mx-20 ">
+          <div className=" md:w-full md:px-20 px-10">
             <form onSubmit={handleSubmit}>
               <div className="mt-10 mb-4 ">
                 <label
@@ -92,7 +92,7 @@ const Login = () => {
 
               <p className="text-xl text-red-500">{alerta.msg}</p>
               <div className="mt-20 mb-4 flex justify-center ">
-                <button className="bg-slate-800 w-1/2 p-3 rounded-xl text-white font-semibold">
+                <button className="bg-slate-800 md:w-1/2 w-full p-3 rounded-xl text-white font-semibold">
                   Iniciar Sesión
                 </button>
               </div>

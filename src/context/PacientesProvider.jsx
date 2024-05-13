@@ -7,7 +7,6 @@ import useAuth from "../hooks/useAuth";
 const PacientesContext = createContext();
 
 const PacientesProvider = ({ children }) => {
-  // const navigate = useNavigate();
   const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
   const [loading, setLoading] = useState(true);
@@ -21,6 +20,45 @@ const PacientesProvider = ({ children }) => {
 
   useEffect(() => {
     const obtenerPacientes = async () => {
+      setCargando(true);
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          return;
+        }
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/patients`,
+          config
+        );
+
+        setPacientes(data);
+        setCargando(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    obtenerPacientes();
+  }, [auth]);
+
+  const submitPaciente = async (paciente) => {
+    if (paciente.id) {
+      await editarPaciente(paciente);
+    } else {
+      await nuevoPaciente(paciente);
+    }
+  };
+
+  const editarPaciente = async (paciente) => {
+    try {
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -34,52 +72,19 @@ const PacientesProvider = ({ children }) => {
         },
       };
 
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/patients`,
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/patients/${paciente.id}`,
+        paciente,
         config
       );
 
-      setPacientes(data);
-    };
-    obtenerPacientes();
-  }, [auth]);
-
-  const submitPaciente = async (paciente) => {
-    // if (paciente.id) {
-    //   await editarPaciente(paciente);
-    // } else {
-    await nuevoPaciente(paciente);
-    //}
-  };
-
-  const editarPaciente = async (paciente) => {
-    try {
-      //   const token = localStorage.getItem("token");
-
-      //   if (!token) {
-      //     return;
-      //   }
-
-      //   const config = {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   };
-
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/patients/${paciente.id}`,
-        paciente
-      );
-
       console.log(data);
-      return;
-      const pacientesActualizados = pacientes.map((pacienteState) =>
-        pacienteState._id === data._id ? data : pacienteState
+
+      const pacientesActualizados = pacientes.map((paciente) =>
+        paciente._id === data._id ? data : paciente
       );
 
       setPacientes(pacientesActualizados);
-
       Swal.fire({
         position: "top-end",
         toast: true,
@@ -126,6 +131,51 @@ const PacientesProvider = ({ children }) => {
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const eliminarPaciente = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return;
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Una vez eliminado, no podrás recuperar este paciente",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.delete(
+            `${import.meta.env.VITE_BACKEND_URL}/patients/${id}`,
+            config
+          );
+
+          const pacientesActualizados = pacientes.filter(
+            (paciente) => paciente._id !== id
+          );
+
+          setPacientes(pacientesActualizados);
+
+          Swal.fire("Eliminado", "El paciente ha sido eliminado", "success");
+        }
       });
     } catch (error) {
       console.log(error);
@@ -232,7 +282,6 @@ const PacientesProvider = ({ children }) => {
     setPaciente({});
     setDiagnósticos([]);
     setDiagnóstico({});
-
   };
 
   return (
@@ -257,6 +306,7 @@ const PacientesProvider = ({ children }) => {
         moves,
         setMoves,
         cerrarSesionPacientes,
+        eliminarPaciente,
       }}
     >
       {children}
