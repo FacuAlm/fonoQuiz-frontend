@@ -23,13 +23,13 @@ export const Board = () => {
   const createBoard = () => {
     let cardsToUse = [];
     if (level === 1) {
-      //10 cartas
+      // 10 cartas
       cardsToUse = imgs.slice(0, 5);
     } else if (level === 2) {
-      //14 cartas
+      // 14 cartas
       cardsToUse = imgs.slice(0, 7);
     } else {
-      //18 cartas
+      // 18 cartas
       cardsToUse = imgs.slice(0, 9);
     }
 
@@ -44,10 +44,16 @@ export const Board = () => {
     const newCards = shuffleArray(duplicatecards);
     const cards = newCards.map((card) => ({
       ...card,
-      flipped: false,
+      flipped: true, // Inicialmente todas las cartas estarán volteadas
       matched: false,
     }));
     setCards(cards);
+
+    // Después de 3 segundos, voltear todas las cartas
+    setTimeout(() => {
+      const unflippedCards = cards.map((card) => ({ ...card, flipped: false }));
+      setCards(unflippedCards);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -145,7 +151,7 @@ export const Board = () => {
         <div className="fixed inset-0 bg-black opacity-50 z-10"></div>
       )}
 
-      <div className="relative  flex items-center">
+      <div className="relative flex items-center">
         <div className="mx-auto flex flex-col justify-center items-center">
           <h1 className="font-bold text-4xl my-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 md:text-5xl">
             Juego de la memoria

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./styles.css";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Ruleta from "./Ruleta";
 
 const vowels = ["A", "E", "I", "O", "U"];
 const consonants = ["B", "C", "D", "F", "G", "J", "L", "P", "R", "S", "T"];
@@ -64,21 +65,29 @@ const images = [
   { id: 55, start: "TU", name: "tucan" },
 ];
 
+// Función para barajar un array
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
+
 const generarImagenes = (consonant, vowel, images) => {
   const matchingImages = images.filter(
     (image) => image.start === consonant + vowel
   );
   if (matchingImages.length > 0) {
-    // Tomamos una imagen al azar de las coincidentes
     const correctImage =
       matchingImages[Math.floor(Math.random() * matchingImages.length)];
-    const otherImages = images
-      .filter((image) => image.start !== consonant + vowel)
-      .slice(0, 4);
-    return [correctImage, ...otherImages];
+    const otherImages = shuffleArray(
+      images.filter((image) => image.start !== consonant + vowel)
+    ).slice(0, 4);
+    const allImages = shuffleArray([correctImage, ...otherImages]);
+    return allImages;
   } else {
-    // Si no hay coincidencias, tomamos 5 imágenes al azar
-    return images.slice(0, 5);
+    return shuffleArray(images.slice(0, 5));
   }
 };
 
@@ -87,7 +96,6 @@ const ConcienciaFonologica = () => {
   const [selectedVowel, setSelectedVowel] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [isCorrect, setIsCorrect] = useState(false);
-  const [isSpinning, setIsSpinning] = useState(false);
   const [randomImages, setRandomImages] = useState([]);
 
   const handleConsonantClick = (consonant) => {
@@ -97,13 +105,8 @@ const ConcienciaFonologica = () => {
     setIsCorrect(false);
   };
 
-  const spinWheel = () => {
-    setIsSpinning(true);
-    const randomIndex = Math.floor(Math.random() * vowels.length);
-    setTimeout(() => {
-      setSelectedVowel(vowels[randomIndex]);
-      setIsSpinning(false);
-    }, 3000); // Cambia la duración según sea necesario
+  const handleSpinEnd = (vowel) => {
+    setSelectedVowel(vowel);
   };
 
   const handleImageClick = (image) => {
@@ -118,7 +121,6 @@ const ConcienciaFonologica = () => {
       });
     } else {
       setIsCorrect(false);
-
       Swal.fire({
         title: "¡Incorrecto!",
         text: "¡Inténtalo de nuevo!",
@@ -170,40 +172,39 @@ const ConcienciaFonologica = () => {
                 d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
               />
             </svg>
-
             <span className="ml-2">Volver</span>
           </Link>
-
           <h1 className="font-bold text-4xl my-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 md:text-5xl">
             Conciencia Fonológica
           </h1>
           <div className="flex flex-col md:flex-row space-x-4 mb-4">
-            <div className="flex flex-col items-center">
-              <h2 className="text-xl font-semibold mb-2 text-white">
-                Elige una consonante:
-              </h2>
-              <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5">
-                {Array.from(consonants).map((consonant, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleConsonantClick(consonant)}
-                    className={`px-10 py-5 bg-gray-300 rounded-3xl shadow-md hover:bg-orange-400 transition duration-300 ease-in-out ${
-                      selectedConsonant === consonant && "bg-yellow-500"
-                    }`}
-                  >
-                    {consonant}
-                  </button>
-                ))}
+            <div className="flex  items-center">
+              <div>
+                <h2 className="text-xl font-semibold mb-2 text-white">
+                  Elige una consonante:
+                </h2>
+                <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5">
+                  {Array.from(consonants).map((consonant, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleConsonantClick(consonant)}
+                      className={`px-10 py-5 bg-gray-300 rounded-3xl shadow-md hover:bg-orange-400 transition duration-300 ease-in-out ${
+                        selectedConsonant === consonant && "bg-yellow-500"
+                      }`}
+                    >
+                      {consonant}
+                    </button>
+                  ))}
+                </div>
+                {selectedConsonant && !selectedVowel && (
+                  <div>
+                    <h2 className="text-xl font-semibold mb-2 mt-4 text-white">
+                      Elige una vocal:
+                    </h2>
+                    <Ruleta onSpinEnd={handleSpinEnd} />
+                  </div>
+                )}
               </div>
-              {selectedConsonant && !selectedVowel && (
-                <button
-                  onClick={spinWheel}
-                  disabled={isSpinning}
-                  className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600"
-                >
-                  {isSpinning ? "Girando..." : "Girar Ruleta de Vocales"}
-                </button>
-              )}
             </div>
             {selectedVowel && (
               <div className="flex flex-col items-center text-white mt-4">
@@ -214,10 +215,9 @@ const ConcienciaFonologica = () => {
           </div>
           {selectedConsonant && selectedVowel && (
             <p className="text-lg font-semibold mb-4 text-white text-center">
-              Debes elegir la imagen que comience con la sílaba{" "}
-              <span className="text-2xl font-bold bg-green-500 p-2 rounded-md mt-3 text-white">
-                {selectedConsonant}
-                {selectedVowel}
+              Debes seleccionar la imagen que comience con la sílaba:{" "}
+              <span className="text-2xl text-yellow-300">
+                {selectedConsonant + selectedVowel}
               </span>
             </p>
           )}

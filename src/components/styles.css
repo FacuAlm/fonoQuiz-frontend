@@ -1,64 +1,7 @@
-/* Animación para la ruleta */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.ruleta {
+  transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-/* Estilos para el botón de girar */
-.spin-button {
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.spin-button:hover {
-  background-color: #2980b9;
-}
-
-/* Estilos para el contenedor de la ruleta */
-.wheel-container {
-  width: 100px;
-  height: 100px;
-  position: relative;
-  margin: 20px auto;
-}
-
-/* Estilos para la ruleta */
-.wheel {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 10px solid #333;
-  border-top-color: transparent;
-  animation: spin 3s infinite linear;
-}
-
-/* Estilos para los sectores de la ruleta */
-.wheel-sector {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 50px 50px 0;
-  border-color: #fff transparent transparent;
-}
-
-/* Estilos para los textos en los sectores */
-.wheel-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #333;
-  font-weight: bold;
+.spin {
+  transition: transform 5s cubic-bezier(0.33, 1, 0.68, 1);
 }
