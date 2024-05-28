@@ -16,7 +16,7 @@ const DetallesPaciente = () => {
     paciente,
     obtenerPaciente,
     obtenerDiagnosticos,
-    diagnósticos,
+    diagnosticos,
     eliminarPaciente,
   } = usePacientes();
 
@@ -33,7 +33,7 @@ const DetallesPaciente = () => {
     obtenerDiagnosticos(id);
   }, []);
 
-  console.log(diagnósticos);
+  console.log(diagnosticos);
   return (
     <>
       <div className="flex flex-col md:flex-row justify-between items-center mx-4 mt-4">
@@ -95,7 +95,7 @@ const DetallesPaciente = () => {
           role="list"
           className="divide-y divide-gray-100 border border-gray-100 mt-3 bg-white shadow-lg "
         >
-          {diagnósticos.map((diagnostico) => (
+          {diagnosticos.map((diagnostico) => (
             <li
               key={diagnostico._id}
               className="flex justify-between gap-x-6 px-5 py-10"

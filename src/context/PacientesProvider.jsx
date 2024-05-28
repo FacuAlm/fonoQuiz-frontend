@@ -11,9 +11,9 @@ const PacientesProvider = ({ children }) => {
   const [paciente, setPaciente] = useState({});
   const [loading, setLoading] = useState(true);
   const [hola, setHola] = useState("hola");
-  const [diagnósticos, setDiagnósticos] = useState([]);
-  const [diagnóstico, setDiagnóstico] = useState({});
-  const [moves, setMoves] = useState(0);
+  const [diagnosticos, setDiagnosticos] = useState([]);
+  const [diagnostico, setDiagnóstico] = useState({});
+
   const [cargando, setCargando] = useState(false);
 
   const { auth } = useAuth();
@@ -36,7 +36,7 @@ const PacientesProvider = ({ children }) => {
         };
 
         const { data } = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/patients`,
+          `${import.meta.env.VITE_BACKEND_URL}/pacientes`,
           config
         );
 
@@ -73,7 +73,7 @@ const PacientesProvider = ({ children }) => {
       };
 
       const { data } = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/patients/${paciente.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/pacientes/${paciente.id}`,
         paciente,
         config
       );
@@ -114,7 +114,7 @@ const PacientesProvider = ({ children }) => {
       };
 
       const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/patients`,
+        `${import.meta.env.VITE_BACKEND_URL}/pacientes`,
 
         paciente,
         config
@@ -164,7 +164,7 @@ const PacientesProvider = ({ children }) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           await axios.delete(
-            `${import.meta.env.VITE_BACKEND_URL}/patients/${id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/pacientes/${id}`,
             config
           );
 
@@ -200,7 +200,7 @@ const PacientesProvider = ({ children }) => {
       const { data } = await axios.post(
         `${
           import.meta.env.VITE_BACKEND_URL
-        }/patients/${pacienteId}/diagnosticos`,
+        }/pacientes/${pacienteId}/diagnosticos`,
 
         diagnostico,
         config
@@ -239,11 +239,17 @@ const PacientesProvider = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/patients/${id}/diagnosticos`,
+        `${import.meta.env.VITE_BACKEND_URL}/pacientes/${id}/diagnosticos`,
         config
       );
 
-      setDiagnósticos(data);
+      // const sortedDiagnosticos = data.diagnosticos.sort(
+      //   (a, b) => new Date(b.fecha) - new Date(a.fecha)
+      // );
+
+      // setDiagnosticos(sortedDiagnosticos);
+
+      setDiagnosticos(data);
     } catch (error) {
       console.log(error);
     }
@@ -265,7 +271,7 @@ const PacientesProvider = ({ children }) => {
         },
       };
       const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/patients/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/pacientes/${id}`,
         config
       );
 
@@ -280,7 +286,7 @@ const PacientesProvider = ({ children }) => {
     localStorage.removeItem("token");
     setPacientes([]);
     setPaciente({});
-    setDiagnósticos([]);
+    setDiagnosticos([]);
     setDiagnóstico({});
   };
 
@@ -299,12 +305,11 @@ const PacientesProvider = ({ children }) => {
         obtenerPaciente,
         nuevoDiagnostico,
         obtenerDiagnosticos,
-        diagnósticos,
-        setDiagnósticos,
-        diagnóstico,
+        diagnosticos,
+        diagnostico,
         setDiagnóstico,
-        moves,
-        setMoves,
+        cargando,
+        setCargando,
         cerrarSesionPacientes,
         eliminarPaciente,
       }}

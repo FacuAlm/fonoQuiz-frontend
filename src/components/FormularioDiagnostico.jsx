@@ -4,7 +4,7 @@ import usePacientes from "../hooks/usePacientes";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const FormularioDiagnostico = ({closeModal}) => {
+const FormularioDiagnostico = ({ closeModal }) => {
   const [fechaDiagnostico, setFechaDiagnostico] = useState("");
   const [descripcion, setDescripcion] = useState("");
 
@@ -33,6 +33,8 @@ const FormularioDiagnostico = ({closeModal}) => {
 
     setFechaDiagnostico("");
     setDescripcion("");
+
+    closeModal();
   };
 
   return (

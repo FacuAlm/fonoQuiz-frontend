@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { imgs } from "../data/data";
 import { Card } from "./Card";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -14,7 +15,7 @@ const shuffleArray = (array) => {
 export const Board = () => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
-  
+  const [moves, setMoves] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [level, setLevel] = useState(1); // Nivel por defecto
@@ -116,6 +117,30 @@ export const Board = () => {
 
   return (
     <>
+      <img
+        src="/images/fondoJuego1.jpg"
+        alt="fondo"
+        className="fixed top-0 left-0 w-full h-full object-cover z-0"
+      />
+
+      <Link to="/juegos" className="absolute top-0 left-0 m-4 z-10 flex text-white bg-black bg-opacity-50 p-2 rounded-md items-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+          />
+        </svg>
+
+        <span className="ml-2">Volver</span>
+      </Link>
       {gameOver && (
         <div className="fixed inset-0 bg-black opacity-50 z-10"></div>
       )}

@@ -17,7 +17,7 @@ export default function AppLayout() {
           <Sidebar />
         </aside>
 
-        <main className="flex-1 p-4 overflow-y-auto ">
+        <main className="flex-1 px-4 overflow-y-auto pb-28 pt-4 ">
           <Outlet />
         </main>
       </div>

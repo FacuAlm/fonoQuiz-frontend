@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const vowels = ["A", "E", "I", "O", "U"];
 const consonants = ["B", "C", "D", "F", "G", "J", "L", "P", "R", "S", "T"];
@@ -143,89 +144,124 @@ const ConcienciaFonologica = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-200">
-      <h1 className="text-3xl font-bold mb-4 text-center">
-        Juego de Consonantes y Vocales
-      </h1>
-      <div className="flex flex-col md:flex-row space-x-4 mb-4">
-        <div className="flex flex-col items-center">
-          <h2 className="text-xl font-semibold mb-2">Elige una consonante:</h2>
-          <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
-            {Array.from(consonants).map((consonant, index) => (
+    <>
+      <img
+        src="/images/fondoJuego1.jpg"
+        alt="fondo"
+        className="fixed top-0 left-0 w-full h-full object-cover z-0"
+      />
+      <div className="bg-black Z-10 bg-opacity-50 w-full h-full absolute top-0 left-0">
+        <div className="min-h-screen flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full bg-black bg-opacity-20 z-10">
+          <Link
+            to="/juegos"
+            className="absolute top-0 left-0 m-4 z-10 flex text-white bg-black bg-opacity-50 p-2 rounded-md items-center gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+              />
+            </svg>
+
+            <span className="ml-2">Volver</span>
+          </Link>
+
+          <h1 className="font-bold text-4xl my-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 md:text-5xl">
+            Conciencia Fonológica
+          </h1>
+          <div className="flex flex-col md:flex-row space-x-4 mb-4">
+            <div className="flex flex-col items-center">
+              <h2 className="text-xl font-semibold mb-2 text-white">
+                Elige una consonante:
+              </h2>
+              <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5">
+                {Array.from(consonants).map((consonant, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleConsonantClick(consonant)}
+                    className={`px-10 py-5 bg-gray-300 rounded-3xl shadow-md hover:bg-orange-400 transition duration-300 ease-in-out ${
+                      selectedConsonant === consonant && "bg-yellow-500"
+                    }`}
+                  >
+                    {consonant}
+                  </button>
+                ))}
+              </div>
+              {selectedConsonant && !selectedVowel && (
+                <button
+                  onClick={spinWheel}
+                  disabled={isSpinning}
+                  className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600"
+                >
+                  {isSpinning ? "Girando..." : "Girar Ruleta de Vocales"}
+                </button>
+              )}
+            </div>
+            {selectedVowel && (
+              <div className="flex flex-col items-center text-white mt-4">
+                <h2 className="text-xl font-semibold mb-2">Vocal elegida:</h2>
+                <span className="text-2xl font-bold">{selectedVowel}</span>
+              </div>
+            )}
+          </div>
+          {selectedConsonant && selectedVowel && (
+            <p className="text-lg font-semibold mb-4 text-white text-center">
+              Debes elegir la imagen que comience con la sílaba{" "}
+              <span className="text-2xl font-bold bg-green-500 p-2 rounded-md mt-3 text-white">
+                {selectedConsonant}
+                {selectedVowel}
+              </span>
+            </p>
+          )}
+          <div className="grid md:grid-cols-5 grid-cols-2 gap-4 mt-10">
+            {randomImages.map((image) => (
               <button
-                key={index}
-                onClick={() => handleConsonantClick(consonant)}
-                className={`px-10 py-5 bg-gray-300 rounded-3xl shadow-md hover:bg-orange-400 transition duration-300 ease-in-out ${
-                  selectedConsonant === consonant && "bg-yellow-500"
+                key={image.id}
+                onClick={() => handleImageClick(image)}
+                className={`flex flex-col items-center p-2 border border-gray-300 bg-white  rounded-md shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out ${
+                  selectedImage && selectedImage.id === image.id && isCorrect
+                    ? "bg-green-500"
+                    : selectedImage &&
+                      selectedImage.id === image.id &&
+                      !isCorrect
+                    ? "bg-red-500"
+                    : ""
                 }`}
               >
-                {consonant}
+                <img
+                  src={`/images/${image.name}.png`}
+                  alt={image.name}
+                  className="w-24 h-24 mb-2"
+                />
               </button>
             ))}
           </div>
-          {selectedConsonant && !selectedVowel && (
+          {selectedImage && (
+            <div className="text-lg font-semibold text-white">
+              {isCorrect
+                ? `¡Muy bien! es ${selectedImage.name}`
+                : "¡Inténtalo de nuevo!"}
+            </div>
+          )}
+          {selectedConsonant && selectedVowel && selectedImage && (
             <button
-              onClick={spinWheel}
-              disabled={isSpinning}
+              onClick={resetGame}
               className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600"
             >
-              {isSpinning ? "Girando..." : "Girar Ruleta de Vocales"}
+              Reiniciar Juego
             </button>
           )}
         </div>
-        {selectedVowel && (
-          <div className="flex flex-col items-center">
-            <h2 className="text-xl font-semibold mb-2">Vocal elegida:</h2>
-            <span className="text-2xl font-bold">{selectedVowel}</span>
-          </div>
-        )}
       </div>
-      {selectedConsonant && selectedVowel && (
-        <p className="text-lg font-semibold mb-4">
-          Debes elegir la imagen que comience con la sílaba{" "}
-          <span className="text-2xl font-bold bg-green-500 p-2 rounded-md text-white">
-            {selectedConsonant}
-            {selectedVowel}
-          </span>
-        </p>
-      )}
-      <div className="grid md:grid-cols-5 grid-cols-2 gap-4 mt-10">
-        {randomImages.map((image) => (
-          <button
-            key={image.id}
-            onClick={() => handleImageClick(image)}
-            className={`flex flex-col items-center p-2 border border-gray-300  rounded-md shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out ${
-              selectedImage && selectedImage.id === image.id && isCorrect
-                ? "bg-green-500"
-                : selectedImage && selectedImage.id === image.id && !isCorrect
-                ? "bg-red-500"
-                : ""
-            }`}
-          >
-            <img
-              src={`/images/${image.name}.png`}
-              alt={image.name}
-              className="w-24 h-24 mb-2"
-            />
-          </button>
-        ))}
-      </div>
-      {selectedImage && (
-        <div className="text-lg font-semibold">
-          {isCorrect
-            ? `¡Muy bien! es ${selectedImage.name}`
-            : "¡Inténtalo de nuevo!"}
-        </div>
-      )}
-      {selectedConsonant && selectedVowel && selectedImage && (
-        <button
-          onClick={resetGame}
-          className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600"
-        >
-          Reiniciar Juego
-        </button>
-      )}
-    </div>
+    </>
   );
 };
 
