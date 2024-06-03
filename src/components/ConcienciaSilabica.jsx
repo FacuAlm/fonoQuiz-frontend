@@ -147,7 +147,7 @@ const ConcienciaSilabica = () => {
         className="fixed top-0 left-0 w-full h-full object-cover z-0"
       />
 
-      <div className="min-h-screen flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full bg-black bg-opacity-20 z-10">
+      <div className="min-h-screen flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full bg-black bg-opacity-20 z-10 overflow-y-auto h-screen">
         <Link
           to="/juegos"
           className="absolute top-0 left-0 m-4 z-10 flex text-white bg-black bg-opacity-50 p-2 rounded-md items-center gap-2"

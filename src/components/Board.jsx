@@ -125,6 +125,19 @@ export const Board = () => {
     handleNewGame();
   };
 
+  const getGridColumns = () => {
+    switch (level) {
+      case 1:
+        return "grid-cols-5";
+      case 2:
+        return "grid-cols-7";
+      case 3:
+        return "grid-cols-9";
+      default:
+        return "grid-cols-4";
+    }
+  };
+
   return (
     <>
       <img
@@ -189,7 +202,7 @@ export const Board = () => {
               Difícil
             </button>
           </div>
-          <div className={`grid grid-cols-6 gap-4`}>
+          <div className={`grid ${getGridColumns()} gap-4`}>
             {cards.map((card) => (
               <Card
                 card={card}

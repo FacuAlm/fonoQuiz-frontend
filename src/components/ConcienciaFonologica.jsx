@@ -146,13 +146,13 @@ const ConcienciaFonologica = () => {
   };
 
   return (
-    <>
+    <div className="overflow-y-auto h-screen mb-10">
       <img
         src="/images/fondoJuego1.jpg"
         alt="fondo"
         className="fixed top-0 left-0 w-full h-full object-cover z-0"
       />
-      <div className="bg-black Z-10 bg-opacity-50 w-full h-full absolute top-0 left-0">
+      <div className="bg-black Z-10 bg-opacity-50 w-full absolute top-0 left-0 overflow-y-auto h-screen ">
         <div className="min-h-screen flex flex-col items-center justify-center absolute top-0 left-0 w-full h-full bg-black bg-opacity-20 z-10">
           <Link
             to="/juegos"
@@ -179,10 +179,12 @@ const ConcienciaFonologica = () => {
           </h1>
           <div className="flex flex-col md:flex-row space-x-4 mb-4">
             <div className="flex  items-center">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center md:flex-row flex-col">
                 <div className="flex flex-col ">
-                  <h2 className="text-xl font-semibold mb-2 text-white text-xl">Selecciona una consonante:</h2>
-                  <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5">
+                  <h2 className="text-xl font-semibold mb-2 text-white">
+                    Selecciona una consonante:
+                  </h2>
+                  <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5 font-black">
                     {Array.from(consonants).map((consonant, index) => (
                       <button
                         key={index}
@@ -254,7 +256,7 @@ const ConcienciaFonologica = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
