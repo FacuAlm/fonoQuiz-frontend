@@ -179,31 +179,24 @@ const ConcienciaFonologica = () => {
           </h1>
           <div className="flex flex-col md:flex-row space-x-4 mb-4">
             <div className="flex  items-center">
-              <div>
-                <h2 className="text-xl font-semibold mb-2 text-white">
-                  Elige una consonante:
-                </h2>
-                <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5">
-                  {Array.from(consonants).map((consonant, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleConsonantClick(consonant)}
-                      className={`px-10 py-5 bg-gray-300 rounded-3xl shadow-md hover:bg-orange-400 transition duration-300 ease-in-out ${
-                        selectedConsonant === consonant && "bg-yellow-500"
-                      }`}
-                    >
-                      {consonant}
-                    </button>
-                  ))}
-                </div>
-                {selectedConsonant && !selectedVowel && (
-                  <div>
-                    <h2 className="text-xl font-semibold mb-2 mt-4 text-white">
-                      Elige una vocal:
-                    </h2>
-                    <Ruleta onSpinEnd={handleSpinEnd} />
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col ">
+                  <h2 className="text-xl font-semibold mb-2 text-white text-xl">Selecciona una consonante:</h2>
+                  <div className="grid grid-cols-4 gap-4 md:mx-0 mx-5">
+                    {Array.from(consonants).map((consonant, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleConsonantClick(consonant)}
+                        className={`px-10 py-5 bg-gray-300 rounded-3xl shadow-md hover:bg-orange-400 text-4xl transition duration-300 ease-in-out ${
+                          selectedConsonant === consonant && "bg-yellow-500"
+                        }`}
+                      >
+                        {consonant}
+                      </button>
+                    ))}
                   </div>
-                )}
+                </div>
+                {selectedConsonant && <Ruleta onSpinEnd={handleSpinEnd} />}
               </div>
             </div>
             {selectedVowel && (

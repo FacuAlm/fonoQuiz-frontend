@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Juegos() {
   return (
-    <div>
+    <div className="bg-gradient-to-r from-blue-200 to-cyan-200 md:h-[90vh] h-screen p-4 rounded-2xl">
       <div>
         <h1 className="text-2xl font-bold text-gray-700">Juegos</h1>
         <p className="text-gray-600 font-light">

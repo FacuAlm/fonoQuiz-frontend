@@ -203,7 +203,7 @@ const ConcienciaSilabica = () => {
           <img
             src={`/images/${words[currentWordIndex].id}.png`}
             alt={words[currentWordIndex].word}
-            className="w-40 h-auto mb-4"
+            className="w-full h-auto mb-4"
           />
           <div className="flex justify-center">
             {!ready && (

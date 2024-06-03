@@ -19,18 +19,22 @@ export const Board = () => {
   const [gameOver, setGameOver] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [level, setLevel] = useState(1); // Nivel por defecto
+  const [showTime, setShowTime] = useState(0); // Tiempo por defecto
 
   const createBoard = () => {
     let cardsToUse = [];
     if (level === 1) {
       // 10 cartas
       cardsToUse = imgs.slice(0, 5);
+      setShowTime(1000);
     } else if (level === 2) {
       // 14 cartas
       cardsToUse = imgs.slice(0, 7);
+      setShowTime(2000);
     } else {
       // 18 cartas
       cardsToUse = imgs.slice(0, 9);
+      setShowTime(4000);
     }
 
     const duplicatecards = cardsToUse.flatMap((img, i) => {
@@ -53,7 +57,7 @@ export const Board = () => {
     setTimeout(() => {
       const unflippedCards = cards.map((card) => ({ ...card, flipped: false }));
       setCards(unflippedCards);
-    }, 2000);
+    }, showTime);
   };
 
   useEffect(() => {
@@ -129,7 +133,10 @@ export const Board = () => {
         className="fixed top-0 left-0 w-full h-full object-cover z-0"
       />
 
-      <Link to="/juegos" className="absolute top-0 left-0 m-4 z-10 flex text-white bg-black bg-opacity-50 p-2 rounded-md items-center gap-2">
+      <Link
+        to="/juegos"
+        className="absolute top-0 left-0 m-4 z-10 flex text-white bg-black bg-opacity-50 p-2 rounded-md items-center gap-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -182,7 +189,7 @@ export const Board = () => {
               Difícil
             </button>
           </div>
-          <div className={`grid grid-cols-5 gap-4`}>
+          <div className={`grid grid-cols-6 gap-4`}>
             {cards.map((card) => (
               <Card
                 card={card}
@@ -191,6 +198,7 @@ export const Board = () => {
               />
             ))}
           </div>
+
           <button
             className="bg-black font-semibold mt-10 text-white rounded-md px-5 py-1 hover:bg-yellow-500 hover:text-black transition-all mb-3"
             onClick={handleNewGame}
