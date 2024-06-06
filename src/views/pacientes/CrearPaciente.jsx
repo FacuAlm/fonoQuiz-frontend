@@ -12,15 +12,15 @@ export default function CrearPaciente() {
   const params = useParams();
 
   const navigate = useNavigate();
- 
- 
+
   const [id, setId] = useState(null);
-   const [fechaIngreso, setFechaIngreso] = useState("");
+  const [fechaIngreso, setFechaIngreso] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [edad, setEdad] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
-  const [patologias, setPatologias] = useState("");
+  const [motivoConsulta, setMotivoConsulta] = useState("");
+  const [diagnostico, setDiagnostico] = useState("");
 
   const calcularEdad = (fechaNacimiento) => {
     const hoy = new Date();
@@ -46,7 +46,8 @@ export default function CrearPaciente() {
         paciente.edad || calcularEdad(paciente.fechaNacimiento?.split("T")[0])
       );
       setFechaNacimiento(paciente.fechaNacimiento?.split("T")[0]);
-      setPatologias(paciente.patologias);
+      setDiagnostico(paciente.diagnostico);
+      setMotivoConsulta(paciente.motivoConsulta);
     } else {
     }
   }, [params]);
@@ -54,7 +55,7 @@ export default function CrearPaciente() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if ([nombre, apellido, edad, fechaNacimiento, patologias].includes("")) {
+    if ([nombre, apellido, edad, fechaNacimiento, diagnostico].includes("")) {
       Swal.fire({
         toast: true,
         title: "Error",
@@ -76,7 +77,8 @@ export default function CrearPaciente() {
         apellido,
         edad,
         fechaNacimiento,
-        patologias,
+        diagnostico,
+        motivoConsulta,
       });
 
       // Restablece los valores del formulario
@@ -86,8 +88,8 @@ export default function CrearPaciente() {
       setApellido("");
       setEdad("");
       setFechaNacimiento("");
-      setPatologias("");
-
+      setDiagnostico("");
+      setMotivoConsulta("");
 
       setTimeout(() => {
         navigate("/dashboard");
@@ -188,16 +190,30 @@ export default function CrearPaciente() {
         </div>
 
         <div className="mb-5 space-y-3">
-          <label htmlFor="patologias" className="text-sm uppercase font-bold">
-            Patologías
+          <label htmlFor="motivo" className="text-sm uppercase font-bold">
+            Motivo de consulta
           </label>
           <input
-            id="patologias"
+            id="motivo"
             className="w-full p-3  border border-gray-200"
             type="text"
-            placeholder="Patologías"
-            value={patologias}
-            onChange={(e) => setPatologias(e.target.value)}
+            placeholder="Motivo de consulta"
+            value={motivoConsulta}
+            onChange={(e) => setMotivoConsulta(e.target.value)}
+          />
+        </div>
+
+        <div className="mb-5 space-y-3">
+          <label htmlFor="diagnostico" className="text-sm uppercase font-bold">
+            Diagnostico
+          </label>
+          <input
+            id="diagnostico"
+            className="w-full p-3  border border-gray-200"
+            type="text"
+            placeholder="Diagnostico"
+            value={diagnostico}
+            onChange={(e) => setDiagnostico(e.target.value)}
           />
         </div>
         <input

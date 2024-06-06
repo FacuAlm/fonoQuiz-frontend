@@ -43,11 +43,11 @@ export default function ModalDiagnostico() {
               >
                 <Dialog.Panel className="w-full max-w-6xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
                   <Dialog.Title as="h3" className="font-bold text-3xl  my-5">
-                    Agregar Diagnóstico
+                    Agregar observación
                   </Dialog.Title>
 
                   <p className="text-gray-600 font-light">
-                    Aquí puedes agregar un diagnóstico.
+                    Aquí puedes agregar una observación.
                   </p>
 
                   <FormularioDiagnostico closeModal={handleClose} />

@@ -45,13 +45,13 @@ const FormularioDiagnostico = ({ closeModal }) => {
             htmlFor="fechaDiagnostico"
             className="text-sm uppercase font-bold"
           >
-            Fecha del Diagnóstico
+            Fecha de la observación
           </label>
           <input
             id="fechaDiagnostico"
             className="w-full p-3  border border-gray-200"
             type="date"
-            placeholder="Fecha del Diagnóstico"
+            placeholder="Fecha de la observación"
             value={fechaDiagnostico}
             onChange={(e) => setFechaDiagnostico(e.target.value)}
           />
@@ -59,7 +59,7 @@ const FormularioDiagnostico = ({ closeModal }) => {
 
         <div className="mb-5 space-y-3">
           <label htmlFor="descripcion" className="text-sm uppercase font-bold">
-            Descripción del Diagnóstico
+            Observación del paciente
           </label>
           <input
             id="descripcion"

@@ -66,28 +66,34 @@ const DetallesPaciente = () => {
 
       <p className="text-gray-600  text-xl mt-10 mx-4">
         Edad:{" "}
-        <span className="text-gray-600 font-bold">{paciente.edad} años</span>
+        <span className="text-gray-600 font-bold">{paciente?.edad} años</span>
       </p>
       <p className="text-gray-600 text-xl  mx-4 mt-5">
         Fecha de ingreso: {""}
         <span className="text-gray-600 font-bold">
-          {formatDate(paciente.fechaIngreso)}
+          {formatDate(paciente?.fechaIngreso)}
         </span>
       </p>
       <p className="text-gray-600 text-xl  mx-4 mt-5">
-        Patologías:{" "}
-        <span className="text-gray-600 font-bold">{paciente.patologias}</span>
+        Diagnostico:{" "}
+        <span className="text-gray-600 font-bold">{paciente?.diagnostico}</span>
+      </p>
+      <p className="text-gray-600 text-xl  mx-4 mt-5">
+        Motivo de Consulta:{" "}
+        <span className="text-gray-600 font-bold">
+          {paciente?.motivoConsulta}
+        </span>
       </p>
 
       <button
         onClick={() => navigate(`?newDiagnostico=true`)}
         className="bg-fuchsia-500 hover:bg-fuchsia-700 text-white font-bold py-2 px-4 rounded-md mt-28 mx-4"
       >
-        Agregar diagnóstico
+        Agregar observación
       </button>
 
       <h2 className="text-xl font-bold text-gray-700 mx-4 mt-5">
-        Diagnosticos del paciente
+        Observaciones del paciente
       </h2>
 
       <div className="w-full mx-auto overflow-y-auto h-[80vh] pb-20">
@@ -102,15 +108,15 @@ const DetallesPaciente = () => {
             >
               <div className="flex min-w-0 gap-x-4">
                 <div className="min-w-0 flex-auto space-y-2">
-                  <p className="text-gray-600 cursor-pointer hover:underline text-xl font-bold">
-                    fecha de diagnóstico:{" "}
+                  <p className="text-gray-600 cursor-pointer hover:underline text-md font-bold">
+                    fecha de observación:{" "}
                     <span className="text-gray-600 font-bold">
                       {formatDate(diagnostico.fechaDiagnostico)}
                     </span>
                   </p>
 
                   <p className="text-sm text-gray-400">
-                    Diagnostico{" "}
+                    Observación{" "}
                     <span className="text-gray-600 font-bold">
                       {diagnostico.descripcion}
                     </span>

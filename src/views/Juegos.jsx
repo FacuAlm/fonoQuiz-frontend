@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 export default function Juegos() {
   return (
-    <div className="bg-gradient-to-r from-blue-200 to-cyan-200 md:h-[90vh] h-screen p-4 rounded-2xl">
+    <div className="bg-gradient-to-r from-blue-200 to-cyan-200 md:h-[90vh] p-4 rounded-2xl">
       <div>
         <h1 className="text-2xl font-bold text-gray-700">Juegos</h1>
         <p className="text-gray-600 font-light">
@@ -12,7 +11,7 @@ export default function Juegos() {
         </p>
       </div>
 
-      <div className="flex gap-10 md:flex-row flex-col mt-10">
+      <div className="flex gap-10 md:flex-row flex-col mt-10 pb-28">
         <div className="mt-4">
           <Link to="/juegos/conciencia-fonologica" className=" ">
             <img
@@ -51,9 +50,7 @@ export default function Juegos() {
             </h2>
           </Link>
         </div>
-   
       </div>
-
     </div>
   );
 }

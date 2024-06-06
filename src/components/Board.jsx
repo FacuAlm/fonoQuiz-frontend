@@ -24,17 +24,20 @@ export const Board = () => {
   const createBoard = () => {
     let cardsToUse = [];
     if (level === 1) {
-      // 10 cartas
-      cardsToUse = imgs.slice(0, 5);
-      setShowTime(1000);
-    } else if (level === 2) {
-      // 14 cartas
-      cardsToUse = imgs.slice(0, 7);
-      setShowTime(2000);
-    } else {
-      // 18 cartas
-      cardsToUse = imgs.slice(0, 9);
+      // 3 pares
+      // 4 segundo
+      cardsToUse = imgs.slice(0, 3);
       setShowTime(4000);
+    } else if (level === 2) {
+      // 4 pares
+      //6 segundos
+      cardsToUse = imgs.slice(0, 4);
+      setShowTime(6000);
+    } else {
+      // 8 segundos
+      //6 pares
+      cardsToUse = imgs.slice(0, 6);
+      setShowTime(8000);
     }
 
     const duplicatecards = cardsToUse.flatMap((img, i) => {
@@ -128,11 +131,11 @@ export const Board = () => {
   const getGridColumns = () => {
     switch (level) {
       case 1:
-        return "grid-cols-5";
+        return "grid-cols-3";
       case 2:
-        return "grid-cols-7";
+        return "grid-cols-4";
       case 3:
-        return "grid-cols-9";
+        return "grid-cols-6";
       default:
         return "grid-cols-4";
     }
